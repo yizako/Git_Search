@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-sm-6 col-xs-12 single_portfolio_text" *ngFor="let result of repositories;let i = index">
+      <img src={{result.avatar}} alt="" />
+      <div class="portfolio_images_overlay text-center">
+        <h1 class="clrd-font">{{result.name}}</h1>
+      </div>
+    </div>
+  </div>
+</div>

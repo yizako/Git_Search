@@ -1,0 +1,38 @@
+<div class="search-menu" role="banner">
+  <span (click)="getResults(txtSearch.value)" class="serch-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="margin:5px; -ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z" fill="#626599" /></svg>
+  </span>
+  <input #txtSearch (keydown.enter)="getResults(txtSearch.value)" placeholder="שם הספריה לחיפוש">
+
+  <span class="search-message" *ngIf="repositories != null && repositories.length>0">נמצאו {{repositories.length}} תוצאות</span>
+ 
+  <div class="bookmark-Counter">{{bookmarks.length}}</div>
+</div>
+
+<div class="container-fluid" *ngIf="repositories.length>0">
+  <div class="row">
+    <div class="col-md-2 col-sm-6 col-xs-12 single_portfolio_text" *ngFor="let result of repositories;let i = index">
+      <img src={{result.avatar}} alt="" />
+      <div class="portfolio_images_overlay text-center">
+        <h1 class="clrd-font">{{result.name}}</h1>
+      </div>
+      <div class="fancybox" rel="ligthbox" (click)="BookMarkMe(i,result.id)">
+        <div class="zoom" [ngClass]="result.checked? 'checked':''">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!first && wait"><i class="fas fa-spinner fa-pulse spiner"></i></div>
+<div *ngIf="first" class="instructions">
+  <h4>בס"ד</h4>
+  <p>- לפי הדרישה, לפניכם מנוע חיפוש לספריות GIT מבוסס API נתון ('https://api.github.com/search/repositories?q=YOUR_SEARCH_KEYWORD').</p>
+  <p>- החיפוש מתבצע לאחר לחיצה על  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="margin:5px; -ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z" fill="#626599" /></svg> או בהקשה על Enter.</p>
+  <p style="color:red">- לא יתאפשר חיפוש אם לא הוזן ערך לחיפוש.</p>
+  <p>- לפי הדרישה, התוצאות מוצגות בגלריה של האווטרים של בעלי הספריות.</p>
+  <p>- שם בעל הספריה מוצג במעבר על התמונה.</p>
+  <p>- בפינה התחתונה-ימנית של כל תוצאה נמצא לחצן הסימניה ( <i class="fas fa-bookmark"></i> ) שלחיצה עליו מוסיפה את הספריה הנבחרת לרשימת הסימניות.</p>
+  <p>- סימניה שנבחרה נצבעת בירוק ולחיצה נוספת 'מכבה' את הסימניה ומורידה אותה מהרשימה.</p>
+  <p>- בפינה השמאלית עליונה מופיע הלחצן למעבר אל רשימת הסימניות שנבחרו שעליו מופיעה כמות הסימניות ברשימה.</p>
+</div>
+
